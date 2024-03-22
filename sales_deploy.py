@@ -8,7 +8,6 @@ from sklearn.preprocessing import MinMaxScaler
 model_RNN = joblib.load('model_RNN.pkl')
 model_LinReg = joblib.load('model_LinReg.pkl')
 model_RidgeReg = joblib.load('model_RidgeReg.pkl')
-model_RFReg = joblib.load('model_RFReg.pkl')
 scaler = joblib.load('min_max_scaler.pkl')
 
 # Function to preprocess input data
