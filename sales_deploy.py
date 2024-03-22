@@ -4,11 +4,16 @@ import numpy as np
 import joblib
 from sklearn.preprocessing import MinMaxScaler
 
+# Get the directory of the current script
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
 # Load models and scaler
 model_RNN = joblib.load('model_RNN.pkl')
 model_LinReg = joblib.load('model_LinReg.pkl')
 model_RidgeReg = joblib.load('model_RidgeReg.pkl')
 scaler = joblib.load('min_max_scaler.pkl')
+
+
 
 # Function to preprocess input data
 def preprocess_input(data):
