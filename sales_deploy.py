@@ -69,9 +69,8 @@ def predict_sales(input_data):
     predictions_RNN = model_RNN.predict(x_input)
     predictions_LinReg = model_LinReg.predict(input_data_scaled)
     predictions_RidgeReg = model_RidgeReg.predict(input_data_scaled)
-    predictions_RFReg = model_RFReg.predict(input_data_scaled)
 
-    return predictions_RNN, predictions_LinReg, predictions_RidgeReg, predictions_RFReg
+    return predictions_RNN, predictions_LinReg, predictions_RidgeReg
 
 # Main function for Streamlit app
 def main():
