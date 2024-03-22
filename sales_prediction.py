@@ -16,7 +16,6 @@ from scipy.stats import mode
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
@@ -151,8 +150,6 @@ model_LinReg = LinearRegression()
 #ridge regression
 model_RidgeReg = Ridge()
 
-# Random Forest Regression model
-model_RFReg = RandomForestRegressor(random_state=42)
 
 # Train Models
 x_train_scaled, x_val_scaled, y_train, y_val = train_test_split(x_train_scaled, y_train, test_size=0.2, random_state=42)
@@ -160,13 +157,11 @@ x_train_scaled, x_val_scaled, y_train, y_val = train_test_split(x_train_scaled, 
 model_RNN.fit(x_train_scaled, y_train, validation_data=(x_val_scaled, y_val), epochs=100, verbose=1)
 model_LinReg.fit(x_train_scaled, y_train)
 model_RidgeReg.fit(x_train_scaled, y_train)
-model_RFReg.fit(x_train_scaled, y_train)
 
 # Evaluate Models
 score_RNN = model_RNN.evaluate(x_val_scaled, y_val)
 score_LinReg = model_LinReg.score(x_val_scaled, y_val)
 score_RidgeReg = model_RidgeReg.score(x_val_scaled, y_val)
-score_RFReg = model_RFReg.score(x_val_scaled, y_val)
 
 print("\nModel Scores:\n")
 print("RNN:", score_RNN)
@@ -180,7 +175,6 @@ import joblib
 joblib.dump(model_RNN, 'model_RNN.pkl')
 joblib.dump(model_LinReg, 'model_LinReg.pkl')
 joblib.dump(model_RidgeReg, 'model_RidgeReg.pkl')
-joblib.dump(model_RFReg, 'model_RFReg.pkl')
 
 # Load the saved model
 loaded_model = joblib.load('model_RNN.pkl')
