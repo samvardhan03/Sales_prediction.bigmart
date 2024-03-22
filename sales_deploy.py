@@ -5,14 +5,21 @@ import numpy as np
 import joblib
 from sklearn.preprocessing import MinMaxScaler
 
-# Get the directory of the current script
-current_dir = os.path.dirname(os.path.abspath(__file__))
+# Get the current working directory
+current_dir = os.getcwd()
+print("Current directory:", current_dir)
+
+# Print full file paths
+print("Model RNN path:", os.path.join(current_dir, 'model_RNN.pkl'))
+print("Model LinReg path:", os.path.join(current_dir, 'model_LinReg.pkl'))
+print("Model RidgeReg path:", os.path.join(current_dir, 'model_RidgeReg.pkl'))
+print("Scaler path:", os.path.join(current_dir, 'min_max_scaler.pkl'))
 
 # Load models and scaler
-model_RNN = joblib.load('model_RNN.pkl')
-model_LinReg = joblib.load('model_LinReg.pkl')
-model_RidgeReg = joblib.load('model_RidgeReg.pkl')
-scaler = joblib.load('min_max_scaler.pkl')
+model_RNN = joblib.load(os.path.join(current_dir, 'model_RNN.pkl'))
+model_LinReg = joblib.load(os.path.join(current_dir, 'model_LinReg.pkl'))
+model_RidgeReg = joblib.load(os.path.join(current_dir, 'model_RidgeReg.pkl'))
+scaler = joblib.load(os.path.join(current_dir, 'min_max_scaler.pkl'))
 
 
 
