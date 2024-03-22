@@ -1,4 +1,6 @@
 # Sales_prediction_model:
+deployed here: https://bigsalesprediction.streamlit.app/
+
 The dataset consists of two CSV files named Train.csv and Test.csv. The first ten rows of the training set are displayed with train_df.head(10). The information about each column is obtained via train_df.info(). A loop iterates over all columns to find their unique values. Descriptive statistics are computed using train_df.describe().
 Correlation Analysis
 A correlation matrix between relevant features such as Item_Weight, Item_Visibility, Item_MRP, and Item_Outlet_Sales is created using Pearson's method. This helps identify relationships among these variables.
