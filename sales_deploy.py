@@ -1,27 +1,9 @@
-import os
 import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import os
 from sklearn.preprocessing import MinMaxScaler
-
-# Get the current working directory
-current_dir = os.getcwd()
-print("Current directory:", current_dir)
-
-# Print full file paths
-print("Model RNN path:", os.path.join(current_dir, 'model_RNN.pkl'))
-print("Model LinReg path:", os.path.join(current_dir, 'model_LinReg.pkl'))
-print("Model RidgeReg path:", os.path.join(current_dir, 'model_RidgeReg.pkl'))
-print("Scaler path:", os.path.join(current_dir, 'min_max_scaler.pkl'))
-
-# Load models and scaler
-model_RNN = joblib.load(os.path.join(current_dir, 'model_RNN.pkl'))
-model_LinReg = joblib.load(os.path.join(current_dir, 'model_LinReg.pkl'))
-model_RidgeReg = joblib.load(os.path.join(current_dir, 'model_RidgeReg.pkl'))
-scaler = joblib.load(os.path.join(current_dir, 'min_max_scaler.pkl'))
-
-
 
 # Function to preprocess input data
 def preprocess_input(data):
@@ -85,6 +67,7 @@ def predict_sales(input_data):
 
     return predictions_RNN, predictions_LinReg, predictions_RidgeReg
 
+
 # Main function for Streamlit app
 def main():
     st.title("BigMart Sales Prediction Web App")
@@ -107,12 +90,26 @@ def main():
 
     if st.sidebar.button("Predict"):
         input_data = pd.DataFrame(user_input, index=[0])
-        predictions_RNN, predictions_LinReg, predictions_RidgeReg, predictions_RFReg = predict_sales(input_data)
+        input_data_processed = preprocess_input(input_data)
+
+        # Load models and scaler
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        model_RNN = joblib.load(os.path.join(current_dir, 'model_RNN.pkl'))
+        model_LinReg = joblib.load(os.path.join(current_dir, 'model_LinReg.pkl'))
+        model_RidgeReg = joblib.load(os.path.join(current_dir, 'model_RidgeReg.pkl'))
+        scaler = joblib.load(os.path.join(current_dir, 'min_max_scaler.pkl'))
+
+        input_data_scaled = scaler.transform(input_data_processed)
+
+        # Predict using models
+        predictions_RNN = model_RNN.predict(input_data_scaled)
+        predictions_LinReg = model_LinReg.predict(input_data_scaled)
+        predictions_RidgeReg = model_RidgeReg.predict(input_data_scaled)
+
         st.write("Predictions:")
-        st.write("RNN:", predictions_RNN[0][0])
+        st.write("RNN:", predictions_RNN[0])
         st.write("Linear Regression:", predictions_LinReg[0])
         st.write("Ridge Regression:", predictions_RidgeReg[0])
-        st.write("Random Forest Regression:", predictions_RFReg[0])
 
 if __name__ == "__main__":
     main()
