@@ -87,7 +87,4 @@ def main():
     user_input = {}
 
     user_input['Item_Identifier'] = st.sidebar.text_input("Item Identifier")
-    user_input['Item_Weight'] = st.sidebar.number_input("Item Weight", min_value=0.0, max_value=500.0)
-    user_input['Item_Visibility'] = st.sidebar.number_input("Item Visibility", min_value=0.0, max_value=1.0)
-    user_input['Item_MRP'] = st.sidebar.number_input("Item MRP", min_value=0.0)
-    user_input['Outlet_Identifier'] = st.sidebar.selectbox("Outlet Identifier", ["OUT010", "OUT
+    user_input['Item_Weight'] = st.sidebar.number_input
