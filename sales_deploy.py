@@ -36,8 +36,10 @@ def preprocess_input(data):
             m = Item_Visibility_Mean.loc[Item_Visibility_Mean['Item_Type_Category'] == cat]['Item_Visibility']
             data.at[i, 'Item_Visibility'] = m
 
-    data['Operation_Years'] = 2013-data['Outlet_Establishment_Year']
-    data=data.drop(['Item_Type', 'Outlet_Establishment_Year'], axis=1)
+    # Removed the following line causing the error
+    # data['Operation_Years'] = 2013-data['Outlet_Establishment_Year']
+
+    data = data.drop(['Item_Type', 'Outlet_Establishment_Year'], axis=1)
 
     lb=LabelEncoder()
     data['Outlet']=lb.fit_transform(data['Outlet_Identifier'])
