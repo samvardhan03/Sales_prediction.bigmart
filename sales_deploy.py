@@ -52,14 +52,14 @@ def preprocess_input(data):
 
 # Function to predict using the models
 def predict_sales(input_data, model_RNN, model_LinReg, model_RidgeReg, scaler):
-    # Scale the input data
-    input_data_scaled = scaler.transform(input_data)
+    # Preprocess input data
+    input_data_processed = preprocess_input(input_data)
 
-    # Reshape for RNN model
-    x_input = np.reshape(input_data_scaled, (input_data_scaled.shape[0], input_data_scaled.shape[1], 1))
+    # Scale the input data
+    input_data_scaled = scaler.transform(input_data_processed)
 
     # Predict using models
-    predictions_RNN = model_RNN.predict(x_input)
+    predictions_RNN = model_RNN.predict(input_data_scaled)
     predictions_LinReg = model_LinReg.predict(input_data_scaled)
     predictions_RidgeReg = model_RidgeReg.predict(input_data_scaled)
 
@@ -93,4 +93,19 @@ def main():
         # Load models and scaler
         current_dir = os.path.dirname(os.path.abspath(__file__))
         model_RNN = joblib.load(os.path.join(current_dir, 'model_RNN.pkl'))
-        model_LinReg = joblib.load(os.path.join(current_dir, 'model_LinReg.pkl
+        model_LinReg = joblib.load(os.path.join(current_dir, 'model_LinReg.pkl'))
+        model_RidgeReg = joblib.load(os.path.join(current_dir, 'model_RidgeReg.pkl'))
+        scaler = joblib.load(os.path.join(current_dir, 'min_max_scaler.pkl'))
+
+        input_data_scaled = scaler.transform(input_data_processed)
+
+        # Predict using models
+        predictions_RNN, predictions_LinReg, predictions_RidgeReg = predict_sales(input_data_scaled, model_RNN, model_LinReg, model_RidgeReg, scaler)
+
+        st.write("Predictions:")
+        st.write("RNN:", predictions_RNN[0])
+        st.write("Linear Regression:", predictions_LinReg[0])
+        st.write("Ridge Regression:", predictions_RidgeReg[0])
+
+if __name__ == "__main__":
+    main()
