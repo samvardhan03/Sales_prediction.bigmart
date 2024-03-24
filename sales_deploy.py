@@ -36,17 +36,16 @@ def preprocess_input(data):
             m = Item_Visibility_Mean.loc[Item_Visibility_Mean['Item_Type_Category'] == cat]['Item_Visibility']
             data.at[i, 'Item_Visibility'] = m
 
-    # Removed the following lines causing the error
-    # data = data.drop(['Item_Type', 'Outlet_Establishment_Year'], axis=1)
+    data['Operation_Years'] = 2013-data['Outlet_Establishment_Year']
+    data = data.drop(['Item_Type', 'Outlet_Establishment_Year', 'Item_Identifier'], axis=1)
 
-    lb=LabelEncoder()
-    data['Outlet']=lb.fit_transform(data['Outlet_Identifier'])
-    var=['Item_Fat_Content','Outlet_Location_Type','Outlet_Type','Outlet_Size','Item_Type_Category']
-    lb=LabelEncoder()
+    lb = LabelEncoder()
+    data['Outlet'] = lb.fit_transform(data['Outlet_Identifier'])
+    var = ['Item_Fat_Content', 'Outlet_Location_Type', 'Outlet_Type', 'Outlet_Size', 'Item_Type_Category']
     for item in var:
-        data[item]=lb.fit_transform(data[item])
+        data[item] = lb.fit_transform(data[item])
 
-    data = pd.get_dummies(data, columns=['Item_Fat_Content','Outlet_Location_Type','Outlet_Type','Outlet_Size','Item_Type_Category'])
+    data = pd.get_dummies(data, columns=['Item_Fat_Content', 'Outlet_Location_Type', 'Outlet_Type', 'Outlet_Size', 'Item_Type_Category'])
 
     return data
 
